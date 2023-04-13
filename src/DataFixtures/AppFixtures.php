@@ -88,7 +88,7 @@ class AppFixtures extends Fixture
             $user->setAdress($faker->streetAddress());
             $user->setPostalCode($faker->postcode());
             $user->setCity($faker->city());
-            $user->setPhoneNumber($faker->phoneNumber());
+            $user->setPhoneNumber($faker->e164PhoneNumber());
             $user->setNewsletter($faker->boolean());
 
             $usersList[] = $user;
