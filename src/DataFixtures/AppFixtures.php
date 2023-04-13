@@ -36,6 +36,8 @@ class AppFixtures extends Fixture
 
         $faker = Factory::create('fr_FR');
 
+        // On fournit au faker un Provider
+
         $faker->addProvider(new SapesProvider());
 
         // Categories
@@ -50,8 +52,10 @@ class AppFixtures extends Fixture
             $categoriesList[] = $category;
             $manager->persist($category);
         }
-        // $product = new Product();
 
+        // Products
+
+        // Array for our products
         $productsList = [];
 
         for($p = 1; $p <= 100; $p++) {
@@ -69,8 +73,11 @@ class AppFixtures extends Fixture
 
             $randomCategory = $categoriesList[mt_rand(0, count($categoriesList) - 1)];
             $product->setCategory($randomCategory);
+
+            // On push dans le tableau $productList, l'objet product
             $productsList[] = $product;
 
+            // on persist $product
             $manager->persist($product);
             
         }
