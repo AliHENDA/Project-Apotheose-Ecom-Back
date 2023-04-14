@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block body %}
+    <h1>Liste des produits</h1>
+
+    <a href="{{ path('app_product_new') }}" class="btn btn-success">Ajouter</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Photo</th>
+                <th>Genre</th>
+                <th>Couleur</th>
+                <th>Taille</th>
+                <th>Note</th>
+                <th>Prix</th>
+                <th>Stock</th>
+                {#<th>Best_sellers_order</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>#}
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                {# <td><img src="{{ product.pictures ? product.pictures|join(', ') : '' }}" alt=""></td> #}
+                <td><img src="{{ product.pictures.0 }}" alt=""></td>
+                <td>{{ product.gender }}</td>
+                <td>{{ product.color }}</td>
+                <td>{{ product.size }}</td>
+                <td>{{ product.rate }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.stock }}</td>
+                <td>{{ product.bestSellersOrder }}</td>
+                {#<td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ product.updatedAt ? product.updatedAt|date('Y-m-d H:i:s') : '' }}</td>#}
+                <td>
+                    <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-info">Voir</a>
+                    <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-warning">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">Aucun produit</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

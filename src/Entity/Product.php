@@ -48,7 +48,7 @@ class Product
     private $size;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $rate;
 
@@ -164,12 +164,12 @@ class Product
         return $this;
     }
 
-    public function getRate(): ?int
+    public function getRate(): ?float
     {
         return $this->rate;
     }
 
-    public function setRate(?int $rate): self
+    public function setRate(?float $rate): self
     {
         $this->rate = $rate;
 
