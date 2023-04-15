@@ -4,12 +4,12 @@
 
 {% block body %}
     <h1>Liste des produits</h1>
+    
+    <a href="{{ path('app_product_new') }}" class="btn btn-success btn-new">Ajouter</a>
 
-    <a href="{{ path('app_product_new') }}" class="btn btn-success">Ajouter</a>
-
-    <table class="table">
+    <table class="table mt-4 table-bordered table-hover">
         <thead>
-            <tr>
+            <tr class="bg-primary">
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Description</th>
@@ -31,7 +31,7 @@
             <tr>
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
+                <td width="30%">{{ product.description }}</td>
                 {# <td><img src="{{ product.pictures ? product.pictures|join(', ') : '' }}" alt=""></td> #}
                 <td><img src="{{ product.pictures.0 }}" alt=""></td>
                 <td>{{ product.gender }}</td>
@@ -40,8 +40,8 @@
                 <td>{{ product.rate }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.stock }}</td>
-                <td>{{ product.bestSellersOrder }}</td>
-                {#<td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                {#<td>{{ product.bestSellersOrder }}</td>
+                <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ product.updatedAt ? product.updatedAt|date('Y-m-d H:i:s') : '' }}</td>#}
                 <td>
                     <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-info">Voir</a>

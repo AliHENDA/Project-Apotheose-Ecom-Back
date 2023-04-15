@@ -5,11 +5,11 @@
 {% block body %}
     <h1>Liste des catégories</h1>
 
-    <a href="{{ path('app_category_new') }}" class="btn btn-success">Ajouter</a>
+    <a href="{{ path('app_category_new') }}" class="btn btn-success btn-new">Ajouter</a>
 
-    <table class="table">
+    <table class="table mt-4 table-bordered table-hover">
         <thead>
-            <tr>
+            <tr class="bg-primary">
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Photo</th>
