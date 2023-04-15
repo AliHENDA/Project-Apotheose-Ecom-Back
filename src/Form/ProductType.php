@@ -29,10 +29,9 @@ class ProductType extends AbstractType
             ])
             ->add('description', TextareaType::class)
             ->add('pictures', CollectionType::class, [
-                'label' => 'Photos',
                 'entry_type' => UrlType::class,
-                'entry_type' => UrlType::class,
-                'entry_type' => UrlType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
             ])
             ->add('gender', ChoiceType::class, [
                 'choices'  => [

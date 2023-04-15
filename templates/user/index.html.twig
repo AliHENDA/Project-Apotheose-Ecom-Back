@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les utilisateurs{% endblock %}
+
+{% block body %}
+    <h1>Les utilisateurs</h1>
+    <div class="d-flex justify-content-between">
+      <a href="{{ path('app_user_new') }}" class="btn btn-success">Ajouter</a>
+      <form class="form-inline d-flex">
+        <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Recherche</button>
+      </form>
+  </div>
+
+    <table class="table mt-4 table-bordered table-hover table-sm">
+        <thead class="thead-dark">
+            <tr class="bg-primary">
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                {# <th>Password</th> #}
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Adress</th>
+                <th>Postal_code</th>
+                <th>City</th>
+                <th>Phone_number</th>
+                <th>Newsletter</th>
+                <th>CreatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                {% if user.roles == ["ROLE_USER"]%}
+                <td>Client</td>
+                {% elseif user.roles == ["ROLE_ADMIN","ROLE_USER"]%}
+                <td>Gestionnaire</td>
+                {% else %}
+                <td>Manager</td>    
+
+                {#<td>{{ user.roles ? user.roles|json_encode : '' }}</td>#}
+                {# <td>{{ user.password }}</td> #}
+                {% endif %}
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.adress }}</td>
+                <td>{{ user.postalCode }}</td>
+                <td>{{ user.city }}</td>
+                <td>{{ user.phoneNumber }}</td>
+                <td>{{ user.newsletter ? 'Abonné' : 'Non Abonné' }}</td>
+                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-info">Voir</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-warning">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

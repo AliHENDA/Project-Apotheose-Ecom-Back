@@ -106,7 +106,7 @@ class AppFixtures extends Fixture
         }
 
         $admin = new User();
-        $admin->setEmail('admin@admin.com');
+        $admin->setEmail('admin@sapes.com');
         $admin->setRoles(['ROLE_ADMIN']);
         $admin->setFirstname($faker->firstName());
         $admin->setLastname($faker->lastName());
@@ -115,7 +115,7 @@ class AppFixtures extends Fixture
         $manager->persist($admin);
 
         $managerUser = new User();
-        $managerUser->setEmail('manager@manager.com');
+        $managerUser->setEmail('manager@sapes.com');
         $managerUser->setRoles(['ROLE_MANAGER']);
         $managerUser->setFirstname($faker->firstName());
         $managerUser->setLastname($faker->lastName());
