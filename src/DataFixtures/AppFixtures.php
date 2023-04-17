@@ -119,7 +119,7 @@ class AppFixtures extends Fixture
         $managerUser->setRoles(['ROLE_MANAGER']);
         $managerUser->setFirstname($faker->firstName());
         $managerUser->setLastname($faker->lastName());
-        $managerUser->setPassword('$2y$13$/U5OgXbXusW7abJveoqeyeTZZBDrq/Lzh8Gt1RXnEDbT2xJqbv3vi');
+        $managerUser->setPassword('$2y$10$DzEIx1tLEuDBH28lUg2UNOMeB4yHe2nlkt1D.I7raPKU/vfBkSHo6');
         $managerUser->setNewsletter($faker->boolean());
 
         

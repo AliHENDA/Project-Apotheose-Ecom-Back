@@ -1,7 +1,7 @@
 <div class="container">
 
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_widget(form, {'attr': {'novalidate': 'novalidate'}}) }}
     <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
 

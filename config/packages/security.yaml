@@ -14,14 +14,15 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        
-        api_public:
-            pattern:   ^/api
-            stateless: true
             
         main:
             lazy: true
             provider: app_user_provider
+            custom_authenticator: App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -34,6 +35,17 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/user, roles: ROLE_ADMIN}
+        - { path: ^/user/(new|edit), roles: ROLE_ADMIN}
+        - { path: ^/user/\d+$, roles: ROLE_ADMIN, methods: [POST]}
+        - { path: ^/(category|product), roles: [ROLE_ADMIN, ROLE_MANAGER]}
+        - { path: ^/(category|product)/\d+/edit, roles: [ROLE_ADMIN, ROLE_MANAGER]}
+        - { path: ^/(category|product)/\d+$, roles: [ROLE_ADMIN, ROLE_MANAGER], methods: [POST]}
+
+
+    role_hierarchy:
+        ROLE_MANAGER: ROLE_USER
+        ROLE_ADMIN: ROLE_MANAGER
 
 when@test:
     security:
