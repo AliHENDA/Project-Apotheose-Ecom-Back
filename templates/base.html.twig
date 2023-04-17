@@ -42,9 +42,25 @@
                               </ul>
                         </li>
                           
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown">
+                            <span>Bienvenue {{ app.user.firstname }}</span>
+                        </a>
                           <li class="nav-item">
-                              <a class="nav-link" href="#">Connexion</a>
+                              <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
                           </li>
+                          {% endif %}
+
+                        {% if is_granted('ROLE_MANAGER') %}
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown">
+                            <span>Bienvenue {{ app.user.firstname }}</span>
+                        </a>
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                          </li>
+                          {% endif %}
                       </ul>
                   </div>
                 </div>
