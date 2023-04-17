@@ -22,7 +22,7 @@ security:
             logout:
                 path: app_logout
                 # where to redirect after logout
-                target: app_login
+                target: app_main_home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -43,9 +43,9 @@ security:
         - { path: ^/(category|product)/\d+$, roles: [ROLE_ADMIN, ROLE_MANAGER], methods: [POST]}
 
 
-    role_hierarchy:
-        ROLE_MANAGER: ROLE_USER
-        ROLE_ADMIN: ROLE_MANAGER
+    #role_hierarchy:
+    #    ROLE_MANAGER: ROLE_USER
+    #    ROLE_ADMIN: ROLE_MANAGER
 
 when@test:
     security:
