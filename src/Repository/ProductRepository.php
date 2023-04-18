@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Service\MySlugger;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Product>
@@ -16,13 +17,18 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProductRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $mySlugger;
+
+    public function __construct(ManagerRegistry $registry, MySlugger $mySlugger)
     {
-        parent::__construct($registry, Product::class);
+        $this->mySlugger = $mySlugger;
+        parent::__construct($registry, Category::class);
     }
 
     public function add(Product $entity, bool $flush = false): void
     {
+        $entity->setSlug($this->mySlugger->slugify($entity->getName()));
+
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {

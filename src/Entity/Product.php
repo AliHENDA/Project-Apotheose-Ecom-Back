@@ -93,6 +93,11 @@ class Product
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="string", length=500, nullable=true)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -255,6 +260,18 @@ class Product
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

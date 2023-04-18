@@ -6,7 +6,6 @@
     <h1>Mme/M. {{user.lastname}}</h1>
 
     {{ include('user/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-    {{ dump(app.request)}}
     <div class="container">
         {{ include('user/_delete_form.html.twig') }}
         <a href="{{ path('app_user_index') }}" class="btn btn-secondary">Retour</a>
