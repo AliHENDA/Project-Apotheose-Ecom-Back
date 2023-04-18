@@ -14,9 +14,9 @@ h1 {
 }
 
 header.masthead {
-    padding-top: 40rem;
+    padding-top: 10rem;
     padding-bottom: 6rem;
-    text-align: center;
+    
     color: black;
     background-repeat: no-repeat;
     background-attachment: scroll;
@@ -27,6 +27,7 @@ header.masthead {
   header.masthead .masthead-subheading {
     font-size: 2.5rem;
     font-style: italic;
+    font-weight: bold;
     line-height: 1.5rem;
     margin-bottom: 25px;
     font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";

@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -18,57 +20,74 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"get_users_item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Email
+     * @Groups({"get_users_item"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Assert\NotBlank
+     * @Groups({"get_users_item"})
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
+     * @Groups({"get_users_item"})
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank
+     * @Groups({"get_users_item"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank
+     * @Groups({"get_users_item"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
+     * @Groups({"get_users_item"})
      */
     private $adress;
 
     /**
      * @ORM\Column(type="string", length=16, nullable=true)
+     * @Groups({"get_users_item"})
      */
     private $postal_code;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
+     * @Groups({"get_users_item"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
+     * @Groups({"get_users_item"})
      */
     private $phone_number;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"get_users_item"})
      */
     private $newsletter;
 

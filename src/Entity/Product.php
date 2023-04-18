@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProductRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -14,51 +15,61 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"get_products_collection"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups({"get_products_collection"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"get_products_collection"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="array", nullable=true)
+     * @Groups({"get_products_collection"})
      */
     private $pictures = [];
 
     /**
      * @ORM\Column(type="string", length=5)
+     * @Groups({"get_products_collection"})
      */
     private $gender;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
+     * @Groups({"get_products_collection"})
      */
     private $color;
 
     /**
      * @ORM\Column(type="smallint")
+     * @Groups({"get_products_collection"})
      */
     private $size;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Groups({"get_products_collection"})
      */
     private $rate;
 
     /**
      * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @Groups({"get_products_collection"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"get_products_collection"})
      */
     private $stock;
 

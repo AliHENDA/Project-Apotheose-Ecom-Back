@@ -34,12 +34,24 @@ class UserType extends AbstractType
                 // On veut des checkboxes !
                 'expanded' => true,
             ])
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('adress', TextType::class)
-            ->add('postal_code', TextType::class)
-            ->add('city', TextType::class)
-            ->add('phone_number', TextType::class)
+            ->add('firstname', TextType::class, [
+                'label' => 'Prénom',
+            ])
+            ->add('lastname', TextType::class, [
+                'label' => 'Nom',
+            ])
+            ->add('adress', TextType::class, [
+                'label' => 'Adresse',
+            ])
+            ->add('postal_code', TextType::class, [
+                'label' => 'Code Postal',
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville',
+            ])
+            ->add('phone_number', TextType::class, [
+                'label' => 'Téléphone',
+            ])
             ->add('newsletter')
             ->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
                 // ici on recupere le form depuis l'event (car on va bosser avec)
