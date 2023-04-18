@@ -3,6 +3,7 @@
 namespace App\Controller\Api;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -88,16 +89,20 @@ class ApiUserController extends AbstractController
     }
 
     /**
-     * @Route("/api/secure/users/{id}/edit", name="api_users_post_edit", methods={"POST"})
+     * @Route("/api/secure/users/edit", name="api_users_post_edit", methods={"POST"})
      */
-    public function modifyItem(Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $passwordHasher)
+    public function modifyItem( UserRepository $userRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $passwordHasher)
     {
         // On recuperer le json
         $jsonContent = $request->getContent();
+        $json = json_decode($jsonContent, true);
 
+        $id = $json['id'];
+
+        $user = $userRepository->find($id);
         try {
             // On deserialize (convertir) le json en entité utilisateur
-            $user = $serializer->deserialize($jsonContent, User::class, 'json');
+            $userUpdate = $serializer->deserialize($jsonContent, User::class, 'json', ['object_to_populate' => $user]);
         } catch (NotEncodableValueException $e) {
             return $this->json(
                 ["error" => 'JSON INVALIDE'],
@@ -106,7 +111,7 @@ class ApiUserController extends AbstractController
         }
 
         // Valider l'entité recu
-        $errors = $validator->validate($user);
+        $errors = $validator->validate($user, null, ['groups' => 'user_update']);
 
         // On check le nombre d'erreur
         if (count($errors) > 0)
@@ -116,11 +121,11 @@ class ApiUserController extends AbstractController
                 $user,
                 $user->getPassword()
             );
-            $user->setPassword($hashedPassword);
+            $userUpdate->setPassword($hashedPassword);
 
         // On sauvegarde l'entité
         $entityManager = $doctrine->getManager();
-        $entityManager->persist($user);
+        $entityManager->persist($userUpdate);
         $entityManager->flush();
 
         // On retorune la reponse adapté
@@ -131,7 +136,7 @@ class ApiUserController extends AbstractController
             // Le status code 200 : OK
             200,
             [],
-            ['groups' => 'get_users_item_edit']
+            ['groups' => 'get_users_item']
         );
     }    
 

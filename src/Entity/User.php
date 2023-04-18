@@ -28,7 +28,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
      * @Assert\Email
-     * @Groups({"get_users_item"})
+     * @Groups({"get_users_item", "user_update"})
      */
     private $email;
 
@@ -43,51 +43,51 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\NotBlank
-     * @Groups({"get_users_item"})
+     * @Groups({"get_users_item", "user_update"})
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Assert\NotBlank
-     * @Groups({"get_users_item"})
+     * @Groups({"get_users_item", "user_update"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Assert\NotBlank
-     * @Groups({"get_users_item"})
+     * @Groups({"get_users_item", "user_update"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
-     * @Groups({"get_users_item"})
+     * @Groups({"get_users_item", "user_update"})
      */
     private $adress;
 
     /**
      * @ORM\Column(type="string", length=16, nullable=true)
-     * @Groups({"get_users_item"})
+     * @Groups({"get_users_item", "user_update"})
      */
     private $postal_code;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
-     * @Groups({"get_users_item"})
+     * @Groups({"get_users_item", "user_update"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
-     * @Groups({"get_users_item"})
+     * @Groups({"get_users_item", "user_update"})
      */
     private $phone_number;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"get_users_item"})
+     * @Groups({"get_users_item", "user_update"})
      */
     private $newsletter;
 
