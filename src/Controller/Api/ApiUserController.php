@@ -76,10 +76,10 @@ class ApiUserController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
 
-        // On retorune la reponse adapté
+        // On retourne la reponse adaptée
 
         return $this->json(
-            // Le film crée
+            // Le user crée
             $user,
             // Le status code 201 : CREATED
             Response::HTTP_CREATED,
@@ -91,15 +91,18 @@ class ApiUserController extends AbstractController
     /**
      * @Route("/api/secure/users/edit", name="api_users_post_edit", methods={"POST"})
      */
-    public function modifyItem( UserRepository $userRepository, Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $passwordHasher)
+    public function modifyItem(Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $passwordHasher)
     {
         // On recuperer le json
         $jsonContent = $request->getContent();
-        $json = json_decode($jsonContent, true);
+       // $json = json_decode($jsonContent, true);
+//
+       //$id = $json['id'];
+       /** @var \App\Entity\User $user */
 
-        $id = $json['id'];
+       $user = $this->getUser();
 
-        $user = $userRepository->find($id);
+        // $user = $userRepository->find($id);
         try {
             // On deserialize (convertir) le json en entité utilisateur
             $userUpdate = $serializer->deserialize($jsonContent, User::class, 'json', ['object_to_populate' => $user]);
@@ -131,7 +134,7 @@ class ApiUserController extends AbstractController
         // On retorune la reponse adapté
 
         return $this->json(
-            // Le film crée
+            // Le user crée
             $user,
             // Le status code 200 : OK
             200,

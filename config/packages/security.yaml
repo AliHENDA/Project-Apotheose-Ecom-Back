@@ -71,7 +71,7 @@ security:
         - { path: ^/api/categories, roles: PUBLIC_ACCESS}
         - { path: ^/api/products, roles: PUBLIC_ACCESS}
         - { path: ^/api/users, roles: PUBLIC_ACCESS }
-        - { path: ^/api/secure/users/\d+, roles: [ROLE_ADMIN,]}
+        - { path: ^/api/secure/users/\d+, roles: [ROLE_USER]}
         - { path: ^/api/secure/users/edit, roles: [ROLE_USER]}
 
 

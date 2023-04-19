@@ -48,7 +48,7 @@ class AppFixtures extends Fixture
         for ($c = 1 ; $c <= 12; $c++) {
             $category = new Category();
             $category->setName($faker->unique()->productCategory());
-            $category->setPicture('https://picsum.photos/id/' . $c . '/150/100');
+            $category->setPicture('https://picsum.photos/id/' . $c . '/310/500');
             $category->setDescription('Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eveniet, quod blanditiis quasi ut officiis ipsa vero.');
         
             $categoriesList[] = $category;
@@ -70,7 +70,7 @@ class AppFixtures extends Fixture
             $product->setColor($faker->randomElement(['Noir', 'Blanc', 'Bleu Clair', 'Rouge', 'Jaune', 'Vert', 'Gris', 'Kaki']));
             $product->setPrice($faker->numberBetween(9.99, 299.99));
             $product->setStock($faker->numberBetween(0, 30));
-            $product->setSize($faker->randomElement(['36', '38', '40', '42', '44', '46', '48']));
+            $product->setSize($faker->randomElement(['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXL']));
             $product->setRate($faker->randomFloat(1, 1, 5));
             
 

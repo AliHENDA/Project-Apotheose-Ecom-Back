@@ -40,7 +40,7 @@ class UserType extends AbstractType
             ->add('lastname', TextType::class, [
                 'label' => 'Nom',
             ])
-            ->add('adress', TextType::class, [
+            ->add('address', TextType::class, [
                 'label' => 'Adresse',
             ])
             ->add('postal_code', TextType::class, [
@@ -61,10 +61,10 @@ class UserType extends AbstractType
                 if ($user->getId() !== NULL) {
                     // Edit
                     $form->add('password', PasswordType::class, [
-                        'mapped' => 'false',
+                        'mapped' => false,
                         'attr' => [
                             'placeholder' => 'Laissez vide si inchangé'
-                        ]
+                        ],
                         ]);
                 } else {
                     // New

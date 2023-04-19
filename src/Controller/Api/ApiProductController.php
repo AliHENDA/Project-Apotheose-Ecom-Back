@@ -36,7 +36,7 @@ class ApiProductController extends AbstractController
      */
     public function getOneProduct(Product $product = null): Response
     {
-
+        
         return $this->json(
             // Les données à sérialiser (à convertir en JSON)
             $product,
