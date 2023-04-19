@@ -32,8 +32,7 @@
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td width="30%">{{ product.description }}</td>
-                {# <td><img src="{{ product.pictures ? product.pictures|join(', ') : '' }}" alt=""></td> #}
-                <td><img src="{{ product.pictures.0 }}" alt=""></td>
+                <td><img src="{{ product.pictures ? product.pictures|first: '' }}" alt=""></td>
                 <td>{{ product.gender }}</td>
                 <td>{{ product.color }}</td>
                 <td>{{ product.size }}</td>
