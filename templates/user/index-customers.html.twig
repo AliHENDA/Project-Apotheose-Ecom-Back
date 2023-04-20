@@ -37,11 +37,6 @@
                 <td>{{ user.email }}</td>
                 {% if user.roles == ["ROLE_USER"]%}
                 <td>Client</td>
-                {% elseif user.roles == ["ROLE_ADMIN"]%}
-                <td>Adminstrateur</td>
-                {% else %}
-                <td>Manager</td>    
-
                 {#<td>{{ user.roles ? user.roles|json_encode : '' }}</td>#}
                 {# <td>{{ user.password }}</td> #}
                 {% endif %}

@@ -50,7 +50,7 @@ class Product
     private $color;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="string")
      * @Groups({"get_products_collection", "get_products_item"})
      */
     private $size;
@@ -168,12 +168,12 @@ class Product
         return $this;
     }
 
-    public function getSize(): ?int
+    public function getSize(): ?string
     {
         return $this->size;
     }
 
-    public function setSize(int $size): self
+    public function setSize(string $size): self
     {
         $this->size = $size;
 

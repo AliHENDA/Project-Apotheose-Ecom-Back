@@ -41,7 +41,7 @@ class ApiUserController extends AbstractController
     }
 
     /**
-     * @Route("/api/users", name="api_users_post_new", methods={"POST"})
+     * @Route("/api/user/new", name="api_users_post_new", methods={"POST"})
      */
     public function createItem(Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $passwordHasher)
     {
@@ -89,7 +89,7 @@ class ApiUserController extends AbstractController
     }
 
     /**
-     * @Route("/api/secure/users/edit", name="api_users_post_edit", methods={"POST"})
+     * @Route("/api/secure/user/edit", name="api_users_post_edit", methods={"POST"})
      */
     public function modifyItem(Request $request, SerializerInterface $serializer, ManagerRegistry $doctrine, ValidatorInterface $validator, UserPasswordHasherInterface $passwordHasher)
     {

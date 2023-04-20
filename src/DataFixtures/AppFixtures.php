@@ -95,7 +95,7 @@ class AppFixtures extends Fixture
             $user->setRoles(['ROLE_USER']);
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
-            $user->setAdress($faker->streetAddress());
+            $user->setAddress($faker->streetAddress());
             $user->setPostalCode($faker->postcode());
             $user->setCity($faker->city());
             $user->setPhoneNumber($faker->e164PhoneNumber());
