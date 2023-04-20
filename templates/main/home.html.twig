@@ -4,13 +4,15 @@
 
          <header class="masthead" style="background-image: url('{{asset('images/street.jpg')}}')">
             <div class="container">
-            {% if is_granted('ROLE_MANAGER') %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <div class="masthead-subheading">Sapes Avenue BackOffice</div>
             {% else %}
                 <div class="masthead-subheading">Sapes Avenue BackOffice</div> 
-                <a class="btn btn-success btn-xl text-uppercase center" href="{{ path('app_login') }}">Connexion</a>
+                <a class="btn btn-dark text-uppercase center" href="{{ path('app_login') }}">Connexion</a>
             {% endif %}    
             </div>
         </header>
+
+        
         
 {% endblock %} 

@@ -54,8 +54,8 @@
                 <td>{{ user.newsletter ? 'Abonné' : 'Non Abonné' }}</td>
                 <td>{{ user.created_at ? user.created_at|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_user_show_employee', {'id': user.id}) }}" class="btn btn-info">Voir</a>
-                    <a href="{{ path('app_user_edit_employee', {'id': user.id}) }}" class="btn btn-warning">Modifier</a>
+                    <a href="{{ path('app_user_show_customer', {'id': user.id}) }}" class="btn btn-info">Voir</a>
+                    <a href="{{ path('app_user_edit_customer', {'id': user.id}) }}" class="btn btn-warning">Modifier</a>
                 </td>
             </tr>
         {% else %}

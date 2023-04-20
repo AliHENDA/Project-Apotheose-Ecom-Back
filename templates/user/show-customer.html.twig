@@ -62,11 +62,9 @@
         </tbody>
     </table>
 
-    {{ dump(user) }}
+    <a href="{{ path('app_user_index_customers') }}" class="btn btn-secondary">Retour</a>
 
-    <a href="{{ path('app_user_edit_employee', {'id': user.id}) }}" class="btn btn-warning">Modifier</a>
+    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-warning">Modifier</a>
 
     {{ include('user/_delete_form.html.twig') }}
-
-    <a href="{{ path('app_user_index_employees') }}" class="btn btn-secondary mt-1">Retour</a>
 {% endblock %}

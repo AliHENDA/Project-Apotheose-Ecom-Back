@@ -28,7 +28,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
      * @Assert\Email
-     * @Groups({"get_users_item", "user_update"})
+     * @Groups({"get_users_item"})
      */
     private $email;
 
@@ -44,50 +44,51 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      * @Assert\NotBlank
      * @Assert\Regex("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/")
+     * @Groups({"get_users_item"})
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Assert\NotBlank
-     * @Groups({"get_users_item", "user_update"})
+     * @Groups({"get_users_item"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Assert\NotBlank
-     * @Groups({"get_users_item", "user_update"})
+     * @Groups({"get_users_item"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
-     * @Groups({"get_users_item", "user_update"})
+     * @Groups({"get_users_item"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=16, nullable=true)
-     * @Groups({"get_users_item", "user_update"})
+     * @Groups({"get_users_item"})
      */
     private $postal_code;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
-     * @Groups({"get_users_item", "user_update"})
+     * @Groups({"get_users_item"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
-     * @Groups({"get_users_item", "user_update"})
+     * @Groups({"get_users_item"})
      */
     private $phone_number;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"get_users_item", "user_update"})
+     * @Groups({"get_users_item"})
      */
     private $newsletter;
 

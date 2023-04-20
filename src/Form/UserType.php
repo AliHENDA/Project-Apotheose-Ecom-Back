@@ -29,9 +29,9 @@ class UserType extends AbstractType
                     'Gestionnaire' => 'ROLE_MANAGER',
                     'Administrateur' => 'ROLE_ADMIN',
                 ],
-                // Choix multiple => Tableau ;)
+                // Choix multiple => Tableau 
                 'multiple' => true,
-                // On veut des checkboxes !
+                // On veut des checkboxes 
                 'expanded' => true,
             ])
             ->add('firstname', TextType::class, [

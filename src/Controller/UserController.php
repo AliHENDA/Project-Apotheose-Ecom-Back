@@ -18,12 +18,25 @@ use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="app_user_index", methods={"GET"})
+     * @Route("/employees", name="app_user_index_employees", methods={"GET"})
      */
-    public function index(UserRepository $userRepository): Response
+    public function employees(UserRepository $userRepository): Response
     {
+        $users = $userRepository->getEmployees();
+
+        //dd($users);
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $users,
+        ]);
+    }
+
+    /**
+     * @Route("/customers", name="app_user_index_customers", methods={"GET"})
+     */
+    public function customers(UserRepository $userRepository): Response
+    {
+        return $this->render('user/index-customers.html.twig', [
+            'users' => $userRepository->getCustomers(),
         ]);
     }
 
@@ -56,9 +69,9 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_user_show", methods={"GET"})
+     * @Route("/employees/{id}", name="app_user_show_employee", methods={"GET"})
      */
-    public function show(User $user): Response
+    public function showEmployee(User $user): Response
     {
         return $this->render('user/show.html.twig', [
             'user' => $user,
@@ -66,9 +79,19 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="app_user_edit", methods={"GET", "POST"})
+     * @Route("/employees/{id}", name="app_user_show_customer", methods={"GET"})
      */
-    public function edit(Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
+    public function showCustomer(User $user): Response
+    {
+        return $this->render('user/show-customer.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/employees/{id}/edit", name="app_user_edit_employee", methods={"GET", "POST"})
+     */
+    public function editEmployee(Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -87,10 +110,41 @@ class UserController extends AbstractController
 
             $userRepository->add($user, true);
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_index_employee', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("/customers/{id}/edit", name="app_user_edit_customer", methods={"GET", "POST"})
+     */
+    public function editCustomer(Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            if($form->get('password')->getData()){
+                $hashedPassword = $passwordHasher->hashPassword(
+                    $user,
+                    $form->get('password')->getData());
+
+                    $user->setPassword($hashedPassword);
+            }
+
+
+
+            $userRepository->add($user, true);
+
+            return $this->redirectToRoute('app_user_index_customers', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('user/edit-customer.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);

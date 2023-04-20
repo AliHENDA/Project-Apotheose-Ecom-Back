@@ -114,7 +114,7 @@ class ApiUserController extends AbstractController
         }
 
         // Valider l'entité recu
-        $errors = $validator->validate($user, null, ['groups' => 'user_update']);
+        $errors = $validator->validate($user);
 
         // On check le nombre d'erreur
         if (count($errors) > 0)
@@ -131,7 +131,7 @@ class ApiUserController extends AbstractController
         $entityManager->persist($userUpdate);
         $entityManager->flush();
 
-        // On retorune la reponse adapté
+        // On retorune la reponse adaptée
 
         return $this->json(
             // Le user crée

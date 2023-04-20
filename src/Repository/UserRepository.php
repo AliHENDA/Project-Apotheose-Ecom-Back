@@ -56,6 +56,36 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->add($user, true);
     }
 
+    public function getEmployees() {
+        
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT * FROM `user`
+        WHERE `email` LIKE '%@sapes.com%'";
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+
+    }
+
+    public function getCustomers() {
+        
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT * FROM `user`
+        WHERE `email` NOT LIKE '%@sapes.com%'";
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

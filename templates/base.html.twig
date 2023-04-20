@@ -35,28 +35,25 @@
                               Utilisateurs
                               </a>
                               <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" href="#">Clients</a></li>
-                                  <li><a class="dropdown-item" href="{{ path('app_user_index')}}">Collaborateurs</a></li>
+                                  <li><a class="dropdown-item" href="{{ path('app_user_index_customers')}}">Clients</a></li>
+                                  <li><a class="dropdown-item" href="{{ path('app_user_index_employees')}}">Collaborateurs</a></li>
                                   {# <li><hr class="dropdown-divider"></li>
                                   <li><a class="dropdown-item" href="#">Something else here</a></li> #}
                               </ul>
                         </li>
                           
-                        {% if is_granted('ROLE_ADMIN') %}
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown">
-                            <span>Bienvenue {{ app.user.firstname }}</span>
-                        </a>
-                          <li class="nav-item">
-                              <a class="nav-link btn btn-danger" href="{{ path('app_logout') }}">Déconnexion</a>
-                          </li>
-                          {% endif %}
-
-                        {% if is_granted('ROLE_MANAGER') %}
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown">
-                            <span>Bienvenue {{ app.user.firstname }}</span>
-                        </a>
+                       {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Bienvenue {{ app.user.firstname }}
+                              </a>
+                              <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="#">Voir mon profil</a></li>
+                                  <li><a class="dropdown-item" href="#">Modifier mon profil</a></li>
+                                  {# <li><hr class="dropdown-divider"></li>
+                                  <li><a class="dropdown-item" href="#">Something else here</a></li> #}
+                              </ul>
+                        </li>
                           <li class="nav-item">
                               <a class="nav-link btn btn-danger" href="{{ path('app_logout') }}">Déconnexion</a>
                           </li>
