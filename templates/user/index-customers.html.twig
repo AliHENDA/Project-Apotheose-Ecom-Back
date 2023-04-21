@@ -35,11 +35,9 @@
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
-                {% if user.roles == ["ROLE_USER"]%}
                 <td>Client</td>
                 {#<td>{{ user.roles ? user.roles|json_encode : '' }}</td>#}
                 {# <td>{{ user.password }}</td> #}
-                {% endif %}
                 <td>{{ user.firstname }}</td>
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.address }}</td>

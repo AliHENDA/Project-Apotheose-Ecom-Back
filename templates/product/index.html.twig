@@ -32,13 +32,16 @@
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td width="30%">{{ product.description }}</td>
-                <td><img src="{{ product.pictures ? product.pictures|first: '' }}" alt=""></td>
+                {#<td><img src="{{ product.pictures ? product.pictures|first: '' }}" alt=""></td>#}
+                <td>Photo</td>
                 <td>{{ product.gender }}</td>
                 <td>{{ product.color }}</td>
                 <td>{{ product.size }}</td>
                 <td>{{ product.rate }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.stock }}</td>
+
+                {{ dump()}}
                 {#<td>{{ product.bestSellersOrder }}</td>
                 <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ product.updatedAt ? product.updatedAt|date('Y-m-d H:i:s') : '' }}</td>#}

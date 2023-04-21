@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProductRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -30,12 +32,6 @@ class Product
      * @Groups({"get_products_collection", "get_products_item"})
      */
     private $description;
-
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     * @Groups({"get_products_collection", "get_products_item"})
-     */
-    private $pictures = [];
 
     /**
      * @ORM\Column(type="string", length=5)
@@ -98,6 +94,11 @@ class Product
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -128,18 +129,6 @@ class Product
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getPictures(): ?array
-    {
-        return $this->pictures;
-    }
-
-    public function setPictures(?array $pictures): self
-    {
-        $this->pictures = $pictures;
 
         return $this;
     }
@@ -272,6 +261,18 @@ class Product
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

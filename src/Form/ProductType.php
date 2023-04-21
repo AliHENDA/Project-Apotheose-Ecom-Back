@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use App\Form\PictureType;
 
 class ProductType extends AbstractType
 {
@@ -27,11 +28,10 @@ class ProductType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom'
             ])
-            ->add('description', TextareaType::class)
-            ->add('pictures', CollectionType::class, [
-                'entry_type' => UrlType::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
+            //->add('description', TextareaType::class)
+            ->add('pictures', UrlType::class, [
+                'label' => 'Photo',
+
             ])
             ->add('gender', ChoiceType::class, [
                 'choices'  => [

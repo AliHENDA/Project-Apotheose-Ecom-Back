@@ -65,7 +65,7 @@ class AppFixtures extends Fixture
             $product = new Product();
             $product->setName('product'. $p);
             $product->setDescription('Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eveniet, quod blanditiis quasi ut officiis ipsa vero eius nihil repellendus labore aperiam, delectus id, amet iusto.');
-            $product->setPictures(['https://picsum.photos/id/' . $p . '/150/100', 'https://picsum.photos/id/' . $p . '/150/100']);
+            $product->setPicture('https://picsum.photos/id/' . $p . '/150/100');
             $product->setGender($faker->randomElement(['Homme', 'Femme']));
             $product->setColor($faker->randomElement(['Noir', 'Blanc', 'Bleu Clair', 'Rouge', 'Jaune', 'Vert', 'Gris', 'Kaki']));
             $product->setPrice($faker->numberBetween(9.99, 299.99));
