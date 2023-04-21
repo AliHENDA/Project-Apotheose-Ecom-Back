@@ -28,8 +28,9 @@ class ProductType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom'
             ])
-            //->add('description', TextareaType::class)
-            ->add('pictures', UrlType::class, [
+            ->add('description', TextareaType::class)
+
+            ->add('picture', UrlType::class, [
                 'label' => 'Photo',
 
             ])

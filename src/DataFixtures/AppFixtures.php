@@ -48,7 +48,7 @@ class AppFixtures extends Fixture
         for ($c = 1 ; $c <= 12; $c++) {
             $category = new Category();
             $category->setName($faker->unique()->productCategory());
-            $category->setPicture('https://picsum.photos/id/' . $c . '/310/500');
+            $category->setPicture('https://picsum.photos/id/' . $c . '/150/100');
             $category->setDescription('Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eveniet, quod blanditiis quasi ut officiis ipsa vero.');
         
             $categoriesList[] = $category;

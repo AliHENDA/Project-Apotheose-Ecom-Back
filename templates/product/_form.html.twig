@@ -1,53 +1,8 @@
-
 <div class="container">
+
 {{ form_start(form) }}
-    {{ form_row(form.name) }}
-
-    {# the data-index attribute is required for the JavaScript code below #}
-<ul class="pictures"
-    data-index="{{ form.pictures|length > 0 ? form.pictures|last.vars.name + 1 : 0 }}"
-    data-prototype="{{ form_widget(form.pictures.vars.prototype)|e('html_attr') }}"
->
-        {% for picture in form.pictures %}
-            <li>{{ form_row(picture.name) }}</li>
-        {% endfor %}
-    </ul>
-
-    <button class="btn btn-success mb-3">{{ button_label|default('Enregistrer') }}</button>
+    {{ form_widget(form) }}
+    <button class="btn btn-success mb-1">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
+
 </div>
-
-<script>
-
-const addPictureLink = document.createElement('a')
-addPictureLink.classList.add('add_picture_list')
-addPictureLink.href='#'
-addPictureLink.innerText='Ajouter une photo'
-addPictureLink.dataset.collectionHolderClass='pictures'
-
-const newLinkLi = document.createElement('li').append(addPictureLink)
-
-const collectionHolder = document.querySelector('ul.pictures')
-collectionHolder.appendChild(addPictureLink)
-
-const addFormToCollection = (e) => {
-	const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-
-      const item = document.createElement('li');
-
-      item.innerHTML = collectionHolder
-        .dataset
-        .prototype
-        .replace(
-          /__name__/g,
-          collectionHolder.dataset.index
-        );
-
-      collectionHolder.appendChild(item);
-
-      collectionHolder.dataset.index++;
-}
-
-addPictureLink.addEventListener("click", addFormToCollection)
-
-</script>
