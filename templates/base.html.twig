@@ -48,8 +48,8 @@
                               Bienvenue {{ app.user.firstname }}
                               </a>
                               <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" href="#">Voir mon profil</a></li>
-                                  <li><a class="dropdown-item" href="#">Modifier mon profil</a></li>
+                                  <li><a class="dropdown-item" href="{{ path('app_user_show_employee', {'id': app.user.id}) }}">Voir mon profil</a></li>
+                                  <li><a class="dropdown-item" href="{{ path('app_user_edit_employee', {'id': app.user.id}) }}">Modifier mon profil</a></li>
                                   {# <li><hr class="dropdown-divider"></li>
                                   <li><a class="dropdown-item" href="#">Something else here</a></li> #}
                               </ul>
