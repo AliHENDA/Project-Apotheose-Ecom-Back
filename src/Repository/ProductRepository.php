@@ -45,6 +45,20 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByProductName() {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql= "SELECT DISTINCT `name`
+        FROM product";
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        return $resultSet->fetchAllAssociative();
+
+    }
+
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */

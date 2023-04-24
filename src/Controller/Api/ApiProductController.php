@@ -17,7 +17,7 @@ class ApiProductController extends AbstractController
      */
     public function getCollection(ProductRepository $productRepository): Response
     {
-        $products = $productRepository->findAll();
+        $products = $productRepository->findByProductName();
 
         return $this->json(
             // Les données à sérialiser (à convertir en JSON)
