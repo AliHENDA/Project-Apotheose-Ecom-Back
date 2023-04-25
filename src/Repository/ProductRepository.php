@@ -59,6 +59,36 @@ class ProductRepository extends ServiceEntityRepository
 
     }
 
+    public function findMenProducts() {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql= "SELECT *
+        FROM product
+        WHERE gender = 'Man'";
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        return $resultSet->fetchAllAssociative();
+
+    }
+
+    public function findWomenProducts() {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql= "SELECT *
+        FROM product
+        WHERE gender = 'Woman'";
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        return $resultSet->fetchAllAssociative();
+
+    }
+
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */

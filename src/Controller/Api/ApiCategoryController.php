@@ -31,22 +31,57 @@ class ApiCategoryController extends AbstractController
     }
 
     /**
-     * @Route("/api/categories/{id}/products", name="api_categories_get_products", methods={"GET"})
+     * @Route("/api/women/categories/{slug}/products", name="api_categories_get_womenproducts", methods={"GET"})
      */
-    public function getItemAndProducts(ProductRepository $productRepository, Category $category = null): Response
+    public function getWomenProductByCategory($slug, Category $category = null): Response
     {
+
+        $slug = $category->getSlug();
 
         if ($category === null) {
             return $this->json(
-                ['error' => 'Catagory non trouvé !'],
+                ['error' => 'Catégorie non trouvée !'],
                 Response::HTTP_NOT_FOUND
             );
         }
-        $products = $category->getProducts();
+        $products = $category->getWomanProducts();
 
         $data = [
             "category" => $category,
             "products" => $products
+        ];
+        return $this->json(
+            $data,
+            Response::HTTP_OK,
+            [],
+            [
+                'groups' => [
+                    // les categories
+                    'get_products_collection',
+                    // le groupe des catégories
+                    'get_categories_collection'
+                ]
+            ]);
+    }
+
+    /**
+     * @Route("/api/men/categories/{slug}/products", name="api_categories_get_menproducts", methods={"GET"})
+     */
+    public function getMenProductByCategory($slug, Category $category = null): Response
+    {
+
+        $slug = $category->getSlug();
+        if ($category === null) {
+            return $this->json(
+                ['error' => 'Catégorie non trouvée !'],
+                Response::HTTP_NOT_FOUND
+            );
+        }
+        $products = $category->getManProducts();
+
+        $data = [
+            "category" => $category,
+            "products" => $products,
         ];
         return $this->json(
             $data,

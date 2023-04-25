@@ -2,15 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\OrdersRepository;
+use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=OrdersRepository::class)
+ * @ORM\Entity(repositoryClass=OrderRepository::class)
+ * @ORM\Table(name="`order`")
  */
-class Orders
+class Order
 {
     /**
      * @ORM\Id
@@ -20,14 +21,10 @@ class Orders
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $delivery_adress;
-
-    /**
-     * @ORM\Column(type="string", length=64)
-     */
-    private $carrier;
+    private $user;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -35,20 +32,9 @@ class Orders
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
-    private $updatedAt;
-
-    /**
      * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="myOrder")
      */
     private $orderDetails;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
 
     public function __construct()
     {
@@ -60,26 +46,14 @@ class Orders
         return $this->id;
     }
 
-    public function getDeliveryAdress(): ?string
+    public function getUser(): ?User
     {
-        return $this->delivery_adress;
+        return $this->user;
     }
 
-    public function setDeliveryAdress(string $delivery_adress): self
+    public function setUser(?User $user): self
     {
-        $this->delivery_adress = $delivery_adress;
-
-        return $this;
-    }
-
-    public function getCarrier(): ?string
-    {
-        return $this->carrier;
-    }
-
-    public function setCarrier(string $carrier): self
-    {
-        $this->carrier = $carrier;
+        $this->user = $user;
 
         return $this;
     }
@@ -92,18 +66,6 @@ class Orders
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -134,18 +96,6 @@ class Orders
                 $orderDetail->setMyOrder(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }

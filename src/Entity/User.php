@@ -103,7 +103,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Orders::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
      */
     private $orders;
 
@@ -311,14 +311,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Orders>
+     * @return Collection<int, Order>
      */
     public function getOrders(): Collection
     {
         return $this->orders;
     }
 
-    public function addOrder(Orders $order): self
+    public function addOrder(Order $order): self
     {
         if (!$this->orders->contains($order)) {
             $this->orders[] = $order;
@@ -328,7 +328,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeOrder(Orders $order): self
+    public function removeOrder(Order $order): self
     {
         if ($this->orders->removeElement($order)) {
             // set the owning side to null (unless already changed)
@@ -339,4 +339,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }

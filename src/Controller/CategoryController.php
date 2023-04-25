@@ -53,6 +53,9 @@ class CategoryController extends AbstractController
      */
     public function show(Category $category): Response
     {
+        $products = $category->getProducts()->contains('Woman');
+
+        dd($products);
         return $this->render('category/show.html.twig', [
             'category' => $category,
         ]);

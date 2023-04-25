@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Expr\Comparison;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -123,6 +125,26 @@ class Category
     public function getProducts(): Collection
     {
         return $this->products;
+    }
+
+    public function getWomanProducts(): Collection
+    {
+        $expr = new Comparison('gender', '=', 'Woman');
+        $criteria = new Criteria();
+
+        $criteria->where($expr);
+
+        return $this->products->matching($criteria);
+    }
+
+    public function getManProducts(): Collection
+    {
+        $expr = new Comparison('gender', '=', 'Man');
+        $criteria = new Criteria();
+
+        $criteria->where($expr);
+
+        return $this->products->matching($criteria);
     }
 
     public function addProduct(Product $product): self

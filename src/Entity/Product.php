@@ -34,6 +34,12 @@ class Product
     private $description;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"get_products_collection", "get_products_item"})
+     */
+    private $picture;
+
+    /**
      * @ORM\Column(type="string", length=5)
      * @Groups({"get_products_collection", "get_products_item"})
      */
@@ -93,11 +99,6 @@ class Product
      * @ORM\Column(type="string", length=500, nullable=true)
      */
     private $slug;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $picture;
 
     public function __construct()
     {
