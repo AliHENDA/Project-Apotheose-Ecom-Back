@@ -160,19 +160,19 @@ class ApiCartController extends AbstractController
 
      }
 
-     /**
-     * @Route("/api/secure/cart/empty", name="api_cart_empty", methods={"POST"})
-     */
+    /**
+    * @Route("/api/secure/cart/empty", name="api_cart_empty", methods={"POST"})
+    */
     public function empty(Cart2Repository $cart2Repository, Request $request, ManagerRegistry $doctrine) {
-
+    
         $user = $this->getUser();
-
+        
         $existingCart = $cart2Repository->findOneBy(["status" => false, "user"=> $user]);
-
+        
         $entityManager = $doctrine->getManager();
         $entityManager->remove($existingCart);
         $entityManager->flush();
-
+        
         return $this->json(
             // Le cart supprimé
             "Le panier a été supprimé",
@@ -182,5 +182,28 @@ class ApiCartController extends AbstractController
             []
         );
 
+    }    
+    /**
+     * @Route("/api/secure/order/new", name="api_order_new", methods={"POST"})
+     */
+    public function newOrder(Cart2Repository $cart2Repository, Request $request, ManagerRegistry $doctrine) {
+
+        $user = $this->getUser();
+
+        $existingCart = $cart2Repository->findOneBy(["status" => false, "user"=> $user]);
+
+        $existingCart->setStatus(true);
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->flush();
+
+        return $this->json(
+            // Le cart supprimé
+            $existingCart,
+            // Le status code 200 : OK
+            200,
+            [],
+            ['groups' => 'get_cart_item']
+        );
     }
 }
