@@ -20,6 +20,7 @@ class CategoryController extends AbstractController
      */
     public function index(CategoryRepository $categoryRepository): Response
     {
+        
         // Transmission à la vue des catégories classées par ordre alphabétique
         return $this->render('category/index.html.twig', [
             'categories' => $categoryRepository->findBy([], ['name' => 'ASC']),
@@ -53,9 +54,10 @@ class CategoryController extends AbstractController
      */
     public function show(Category $category): Response
     {
-        $products = $category->getProducts()->contains('Woman');
-
+        $products = $category->getWomanProducts();
         dd($products);
+
+        // dd($products);
         return $this->render('category/show.html.twig', [
             'category' => $category,
         ]);

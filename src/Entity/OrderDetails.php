@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\OrderDetailsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\OrderDetailsRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OrderDetailsRepository::class)
@@ -18,51 +19,38 @@ class OrderDetails
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Product::class)
-     */
-    private $product;
-
-    /**
      * @ORM\Column(type="integer")
+     * @Groups({"get_order_details_item"})
      */
     private $quantity;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"get_order_details_item"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="integer")
+     * Groups({"get_order_details_item"})
      */
     private $total;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $status;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderDetails")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderDetails", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     * Groups({"get_order_details_item"})
      */
     private $myOrder;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="orderDetails")
+     */
+    private $product;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getProduct(): ?Product
-    {
-        return $this->product;
-    }
-
-    public function setProduct(?Product $product): self
-    {
-        $this->product = $product;
-
-        return $this;
     }
 
     public function getQuantity(): ?int
@@ -101,18 +89,6 @@ class OrderDetails
         return $this;
     }
 
-    public function isStatus(): ?bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus(bool $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
     public function getMyOrder(): ?Order
     {
         return $this->myOrder;
@@ -121,6 +97,18 @@ class OrderDetails
     public function setMyOrder(?Order $myOrder): self
     {
         $this->myOrder = $myOrder;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
 
         return $this;
     }

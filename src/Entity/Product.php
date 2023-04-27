@@ -23,55 +23,55 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"get_products_collection", "get_products_item"})
+     * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"get_products_collection", "get_products_item"})
+     * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"get_products_collection", "get_products_item"})
+     * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=5)
-     * @Groups({"get_products_collection", "get_products_item"})
+     * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $gender;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
-     * @Groups({"get_products_collection", "get_products_item"})
+     * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $color;
 
     /**
      * @ORM\Column(type="string")
-     * @Groups({"get_products_collection", "get_products_item"})
+     * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $size;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"get_products_collection", "get_products_item"})
+     * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $rate;
 
     /**
      * @ORM\Column(type="decimal", precision=5, scale=2)
-     * @Groups({"get_products_collection", "get_products_item"})
+     * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"get_products_collection", "get_products_item"})
+     * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $stock;
 
@@ -92,17 +92,31 @@ class Product
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
+     * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $category;
 
     /**
      * @ORM\Column(type="string", length=500, nullable=true)
+     * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="product")
+     */
+    private $carts;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Cart2::class, mappedBy="products")
+     */
+    private $cart2s;
 
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->carts = new ArrayCollection();
+        $this->cart2s = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -274,6 +288,63 @@ class Product
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cart>
+     */
+    public function getCarts(): Collection
+    {
+        return $this->carts;
+    }
+
+    public function addCart(Cart $cart): self
+    {
+        if (!$this->carts->contains($cart)) {
+            $this->carts[] = $cart;
+            $cart->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart(Cart $cart): self
+    {
+        if ($this->carts->removeElement($cart)) {
+            // set the owning side to null (unless already changed)
+            if ($cart->getProduct() === $this) {
+                $cart->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cart2>
+     */
+    public function getCart2s(): Collection
+    {
+        return $this->cart2s;
+    }
+
+    public function addCart2(Cart2 $cart2): self
+    {
+        if (!$this->cart2s->contains($cart2)) {
+            $this->cart2s[] = $cart2;
+            $cart2->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart2(Cart2 $cart2): self
+    {
+        if ($this->cart2s->removeElement($cart2)) {
+            $cart2->removeProduct($this);
+        }
 
         return $this;
     }
