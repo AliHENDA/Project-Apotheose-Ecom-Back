@@ -103,11 +103,6 @@ class Product
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="product")
-     */
-    private $carts;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Cart2::class, mappedBy="products")
      */
     private $cart2s;
@@ -115,7 +110,6 @@ class Product
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
-        $this->carts = new ArrayCollection();
         $this->cart2s = new ArrayCollection();
     }
 
@@ -288,36 +282,6 @@ class Product
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Cart>
-     */
-    public function getCarts(): Collection
-    {
-        return $this->carts;
-    }
-
-    public function addCart(Cart $cart): self
-    {
-        if (!$this->carts->contains($cart)) {
-            $this->carts[] = $cart;
-            $cart->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCart(Cart $cart): self
-    {
-        if ($this->carts->removeElement($cart)) {
-            // set the owning side to null (unless already changed)
-            if ($cart->getProduct() === $this) {
-                $cart->setProduct(null);
-            }
-        }
 
         return $this;
     }
