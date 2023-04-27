@@ -16,13 +16,6 @@ class MainController extends AbstractController {
     
     public function home(FashionApi $fashionApi, Cart2Repository $cart2Repository) {
 
-       // dd($fashionApi->fetchNews());
-
-       $cart = $cart2Repository->find(1);
-       $cartContent = $cart->getProducts(); 
-
-       dd($cartContent);
-
         return $this->render('main/home.html.twig');
 
     }

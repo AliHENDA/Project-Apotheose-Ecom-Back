@@ -17,14 +17,9 @@ class Cart2
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * Groups({"get_cart_item"})
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups({"get_cart_item"})
-     */
-    private $quantity;
 
     /**
      * @ORM\Column(type="float")
@@ -58,18 +53,6 @@ class Cart2
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): self
-    {
-        $this->quantity = $quantity;
-
-        return $this;
     }
 
     public function getTotal(): ?float

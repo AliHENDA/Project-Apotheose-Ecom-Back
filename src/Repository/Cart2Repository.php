@@ -39,11 +39,25 @@ class Cart2Repository extends ServiceEntityRepository
         }
     }
 
-    public function getExistingCart()
+    public function getCart($user)
     {
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql= "SELECT * FROM cart2 WHERE `status` = false";
+        $sql= "SELECT * FROM cart2 WHERE `status` = false AND user_id = $user" ;
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+       // dd($resultSet);
+
+        return $resultSet->fetchAssociative();
+        
+    }
+
+    public function getOrders($user)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql= "SELECT * FROM cart2 WHERE `status` = true AND user_id = $user";
 
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();

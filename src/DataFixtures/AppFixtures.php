@@ -81,7 +81,7 @@ class AppFixtures extends Fixture
             $productsList[] = $product;
 
             // on persist $product
-            $manager->persist($product);
+            //$manager->persist($product);
             
         }
 
