@@ -49,7 +49,7 @@ class ProductRepository extends ServiceEntityRepository
 
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql= "SELECT  DISTINCT `id`, `name`, `description`, `picture`, `color`, `rate`, `price`,  `best_sellers_order`, `slug`, `category_id`, `created_at`, `updated_at`
+        $sql= "SELECT  DISTINCT `name`, `description`, `picture`, `color`, `rate`, `price`,  `best_sellers_order`, `slug`, `category_id`, `created_at`, `updated_at`
         FROM product";
 
         $stmt = $conn->prepare($sql);
@@ -63,7 +63,7 @@ class ProductRepository extends ServiceEntityRepository
 
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql= "SELECT *
+        $sql= "SELECT DISTINCT `name`, `description`, `picture`, `color`, `rate`, `price`,  `best_sellers_order`, `slug`, `category_id`, `created_at`, `updated_at`
         FROM product
         WHERE gender = 'Man'";
 
@@ -78,7 +78,7 @@ class ProductRepository extends ServiceEntityRepository
 
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql= "SELECT *
+        $sql= "SELECT DISTINCT `name`, `description`, `picture`, `color`, `rate`, `price`,  `best_sellers_order`, `slug`, `category_id`, `created_at`, `updated_at`
         FROM product
         WHERE gender = 'Woman'";
 

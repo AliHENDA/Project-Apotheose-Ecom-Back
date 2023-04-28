@@ -32,7 +32,7 @@ class ApiProductController extends AbstractController
     }
 
     /**
-     * @Route("/api/men/products", name="api_women_products_get", methods={"GET"})
+     * @Route("/api/men/products", name="api_men_products_get", methods={"GET"})
      */
     public function getMenProducts(ProductRepository $productRepository): Response
     {

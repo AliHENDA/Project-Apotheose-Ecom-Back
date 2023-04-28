@@ -13,11 +13,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class ApiUserController extends AbstractController 
 
 {
-
     /**
      * Requete pour chercher un Item
      *
@@ -75,7 +75,7 @@ class ApiUserController extends AbstractController
         $entityManager = $doctrine->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
-
+        
         // On retourne la reponse adaptée
 
         return $this->json(

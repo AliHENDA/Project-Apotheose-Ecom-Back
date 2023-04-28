@@ -44,25 +44,6 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
-
-    // public function getWomenProducts(Category $category) {
-// 
-    //     $conn = $this->getEntityManager()->getConnection();
-// 
-    //     $products = $category->getProducts();
-// 
-    //     dd($products);
-// 
-    //     $sql = "SELECT * FROM ' . $products . '
-    //     WHERE gender = 'Woman";
-// 
-    //     $stmt = $conn->prepare($sql);
-    //     $resultSet = $stmt->executeQuery();
-// 
-    //     return $resultSet->fetchAllAssociative();
-// 
-    // }
-
 //    /**
 //     * @return Category[] Returns an array of Category objects
 //     */
