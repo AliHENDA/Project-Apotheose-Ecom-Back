@@ -52,12 +52,6 @@ class Product
     private $color;
 
     /**
-     * @ORM\Column(type="string")
-     * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
-     */
-    private $size;
-
-    /**
      * @ORM\Column(type="float", nullable=true)
      * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
@@ -68,12 +62,6 @@ class Product
      * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $price;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
-     */
-    private $stock;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
@@ -103,14 +91,27 @@ class Product
     private $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Cart2::class, mappedBy="products")
+     * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="product")
      */
-    private $cart2s;
+    private $orderDetails;
+
+    /**
+     * @ORM\OneToMany(targetEntity=TemporaryCart::class, mappedBy="product")
+     */
+    private $temporaryCarts;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Inventory::class, mappedBy="product")
+     * @Groups({"get_products_collection", "get_products_item"})
+     */
+    private $inventories;
 
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
-        $this->cart2s = new ArrayCollection();
+        $this->orderDetails = new ArrayCollection();
+        $this->temporaryCarts = new ArrayCollection();
+        $this->inventories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -166,18 +167,6 @@ class Product
         return $this;
     }
 
-    public function getSize(): ?string
-    {
-        return $this->size;
-    }
-
-    public function setSize(string $size): self
-    {
-        $this->size = $size;
-
-        return $this;
-    }
-
     public function getRate(): ?float
     {
         return $this->rate;
@@ -198,18 +187,6 @@ class Product
     public function setPrice(string $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getStock(): ?int
-    {
-        return $this->stock;
-    }
-
-    public function setStock(int $stock): self
-    {
-        $this->stock = $stock;
 
         return $this;
     }
@@ -287,27 +264,90 @@ class Product
     }
 
     /**
-     * @return Collection<int, Cart2>
+     * @return Collection<int, OrderDetails>
      */
-    public function getCart2s(): Collection
+    public function getOrderDetails(): Collection
     {
-        return $this->cart2s;
+        return $this->orderDetails;
     }
 
-    public function addCart2(Cart2 $cart2): self
+    public function addOrderDetail(OrderDetails $orderDetail): self
     {
-        if (!$this->cart2s->contains($cart2)) {
-            $this->cart2s[] = $cart2;
-            $cart2->addProduct($this);
+        if (!$this->orderDetails->contains($orderDetail)) {
+            $this->orderDetails[] = $orderDetail;
+            $orderDetail->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removeCart2(Cart2 $cart2): self
+    public function removeOrderDetail(OrderDetails $orderDetail): self
     {
-        if ($this->cart2s->removeElement($cart2)) {
-            $cart2->removeProduct($this);
+        if ($this->orderDetails->removeElement($orderDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($orderDetail->getProduct() === $this) {
+                $orderDetail->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TemporaryCart>
+     */
+    public function getTemporaryCarts(): Collection
+    {
+        return $this->temporaryCarts;
+    }
+
+    public function addTemporaryCart(TemporaryCart $temporaryCart): self
+    {
+        if (!$this->temporaryCarts->contains($temporaryCart)) {
+            $this->temporaryCarts[] = $temporaryCart;
+            $temporaryCart->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTemporaryCart(TemporaryCart $temporaryCart): self
+    {
+        if ($this->temporaryCarts->removeElement($temporaryCart)) {
+            // set the owning side to null (unless already changed)
+            if ($temporaryCart->getProduct() === $this) {
+                $temporaryCart->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inventory>
+     */
+    public function getInventories(): Collection
+    {
+        return $this->inventories;
+    }
+
+    public function addInventory(Inventory $inventory): self
+    {
+        if (!$this->inventories->contains($inventory)) {
+            $this->inventories[] = $inventory;
+            $inventory->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInventory(Inventory $inventory): self
+    {
+        if ($this->inventories->removeElement($inventory)) {
+            // set the owning side to null (unless already changed)
+            if ($inventory->getProduct() === $this) {
+                $inventory->setProduct(null);
+            }
         }
 
         return $this;
