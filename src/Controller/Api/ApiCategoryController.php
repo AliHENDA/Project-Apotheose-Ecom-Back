@@ -36,7 +36,7 @@ class ApiCategoryController extends AbstractController
     public function getWomenProductByCategory($slug, Category $category = null): Response
     {
 
-       $slug = $category->getSlug();
+        $slug = $category->getSlug();
 
         if ($category === null) {
             return $this->json(
@@ -44,7 +44,7 @@ class ApiCategoryController extends AbstractController
                 Response::HTTP_NOT_FOUND
             );
         }
-        $products = $category->getWomanProducts(); 
+        $products = $category->getWomanProducts();
 
         $data = [
             "category" => $category,

@@ -17,7 +17,7 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
+     * @Groups({"get_products_collection", "get_products_item"})
      */
     private $id;
 

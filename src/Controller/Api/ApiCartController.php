@@ -27,31 +27,16 @@ class ApiCartController extends AbstractController
         $user = $this->getUser();
         $userId = $user->getId();
         $cart = $cart2Repository->getCart($userId);
+        $cartContent = $cart2Repository->find($cart['id']);
 
-
-        if($cart === true) {
-
-            $cartContent = $cart2Repository->find($cart['id']);
-            return $this->json(
+        return $this->json(
             // Le cart non payé
             $cartContent,
             // Le status code 200 : OK
             200,
             [],
             ['groups' => 'get_cart_item']
-            );
-        } else {
-                return $this->json(
-                    // Le cart non payé
-                    "Pas de panier",
-                    // Le status code 200 : OK
-                    204,
-                    [],
-                    []
-                    );
-
-        }
-    
+        );
     }
 
     /**
@@ -64,21 +49,20 @@ class ApiCartController extends AbstractController
         $userId = $user->getId();
         $orders = $cart2Repository->getOrders($userId);
 
-        // dd($orders);
+       dd($orders);
 
     foreach ($orders as $order) {
-        $orderContent = $cart2Repository->find($order['id']);
-            
-    }
+        $ordersContent = $cart2Repository->find($order['id']);
 
-    return $this->json(
-        // Les commandes
-        $orderContent,
-        // Le status code 200 : OK
-        200,
-        [],
-        ['groups' => 'get_cart_item']
-        );
+            return $this->json(
+            // Les commandes
+            $ordersContent,
+            // Le status code 200 : OK
+            200,
+            [],
+            ['groups' => 'get_cart_item']
+            );
+        }
     }
 
 
@@ -87,17 +71,12 @@ class ApiCartController extends AbstractController
      */
     public function add(ProductRepository $productRepository, Cart2Repository $cart2Repository, Request $request, ManagerRegistry $doctrine)
     {
-        // le JSON reçu
+
         $jsonContent = $request->getContent();
 
-        // Transformation du json en php(array)
         $content = json_decode($jsonContent, true);
 
-        // On récupère l'ID du product
         $productId = $content["product"];
-        // On récupère le total du cart updated (propriété pas nécessaire, Le front nous transmet directement le montant total de la commande à jour)
-        // de notre côté, on pourra à partir de la BDD, récupérer le price/total/quantity pour affichage dans un template order-index
-
         $total = $content["total"];
 
         $product = $productRepository->find($productId);
@@ -173,7 +152,7 @@ class ApiCartController extends AbstractController
         return $this->json(
             // Le cart modifié
             $existingCart,
-            // Le status code 200 : OK
+            // Le status code 201 : CREATED
             200,
             [],
             ['groups' => 'get_cart_item']
@@ -197,45 +176,30 @@ class ApiCartController extends AbstractController
         return $this->json(
             // Le cart supprimé
             "Le panier a été supprimé",
-            // Le status code 204 : NO CONTENT
+            // Le status code 201 : DELETED
             204,
             [],
             []
         );
+
     }    
-    
     /**
      * @Route("/api/secure/order/new", name="api_order_new", methods={"POST"})
      */
-    public function newOrder(ProductRepository $productRepository, Cart2Repository $cart2Repository, Request $request, ManagerRegistry $doctrine) {
+    public function newOrder(Cart2Repository $cart2Repository, Request $request, ManagerRegistry $doctrine) {
 
-        // On va d'abord récupérer l'utilisateur
         $user = $this->getUser();
 
-        // On va chercher le panier existant avec un statut false (true équivaudra à "commande pas encore payée")
-        $cartToOrder = $cart2Repository->findOneBy(["status" => false, "user"=> $user]);
+        $existingCart = $cart2Repository->findOneBy(["status" => false, "user"=> $user]);
 
-        // on change le statut de la commande, en true (true équivaudra à "commande payée")
-        $cartToOrder->setStatus(true);
-
-        // $products = $cartToOrder->getProducts();
-// 
-        // foreach ($products as $product) {
-        //     $productId = $product->getId();
-        //     $productDB = $productRepository->find($productId);
-        //    // dd($quantity);
-        //     $quantity = $productDB->getStock();
-        //     $newQuantity = $quantity--;
-        //     $productDB->setStock($newQuantity);
-// 
-        // }
+        $existingCart->setStatus(true);
 
         $entityManager = $doctrine->getManager();
         $entityManager->flush();
 
         return $this->json(
-            // La nouvelle commande
-            $cartToOrder,
+            // Le cart supprimé
+            $existingCart,
             // Le status code 200 : OK
             200,
             [],

@@ -11,7 +11,6 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\Provider\SapesProvider;
 use Doctrine\DBAL\Connection;
-use Doctrine\Persistence\ManagerRegistry;
 
 class AppFixtures extends Fixture
 {
@@ -30,7 +29,7 @@ class AppFixtures extends Fixture
         $this->connection->executeQuery('TRUNCATE TABLE user');
 
     }
-    
+
     public function load(ObjectManager $manager): void
     {
         $this->truncate();
