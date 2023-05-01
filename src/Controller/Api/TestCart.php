@@ -2,8 +2,6 @@
 
 namespace App\Controller\Api;
 
-use App\Repositor;
-use App\Entity\Cart2;
 use App\Entity\Inventory;
 use App\Entity\Order;
 use DateTimeImmutable;
@@ -13,12 +11,9 @@ use App\Repository\InventoryRepository;
 use App\Repository\ProductRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\TemporaryCartRepository;
-use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -28,7 +23,7 @@ class TestCart extends AbstractController
     /**
      * @Route("/api/secure/user/cart", name="api_user_cart", methods={"GET"})
      */
-    public function getCart(ProductRepository $productRepository) {
+    public function getCart() {
 
         // we fetch connected user
         $user = $this->getUser();
