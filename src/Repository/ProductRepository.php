@@ -59,6 +59,23 @@ class ProductRepository extends ServiceEntityRepository
 
     }
 
+    public function search($search) {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT p.* 
+        FROM product p 
+        JOIN category c ON p.category_id = c.id 
+        WHERE c.name LIKE '%" . $search . "%' 
+           OR p.name LIKE '%" . $search . "%'";
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        return $resultSet->fetchAllAssociative();
+
+    }
+
     public function findMenProducts() {
 
         $conn = $this->getEntityManager()->getConnection();
