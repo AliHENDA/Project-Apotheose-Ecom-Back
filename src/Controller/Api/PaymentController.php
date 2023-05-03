@@ -34,9 +34,9 @@ class PaymentController extends AbstractController
                     'price_data' => [
                         'currency' => 'usd',
                         'product_data' => [
-                            'name' => $product['name']
+                            'name' => $product['product']['name']
                         ],
-                        'unit_amount' => $product['price']
+                        'unit_amount' => $product['product']['price']
                     ],
                     'quantity' => 1
                 ], $data['products']),
@@ -48,9 +48,6 @@ class PaymentController extends AbstractController
             'shipping_address_collection' => [
                 'allowed_countries' => ['FR']
             ],
-            'metadata' => [
-                'cart_id' => $data['cart_id']
-            ]
         ]);
 
         return $this->json(
