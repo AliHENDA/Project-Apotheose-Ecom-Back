@@ -59,7 +59,7 @@ class UserController extends AbstractController
 
             $userRepository->add($user, true);
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_index_customers', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user/new.html.twig', [
@@ -144,7 +144,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_index_customers', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('user/edit-customer.html.twig', [
+        return $this->renderForm('user/edit-customers.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
