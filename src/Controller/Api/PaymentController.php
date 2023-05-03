@@ -97,8 +97,7 @@ class PaymentController extends AbstractController
               'expand' => ['line_items'],
             ]);
 
-            $cartId = $event->data->object->metadata->cart_id;
-            $userId = $event->data->object->metadata->user_id;
+            $cart->newOrder();
 
           }
 
