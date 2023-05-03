@@ -49,6 +49,9 @@ class PaymentController extends AbstractController
             'shipping_address_collection' => [
                 'allowed_countries' => ['FR', 'US', 'GB']
             ],
+            'metadata' => [
+                'id' => $data['id']
+            ]
         ]);
 
         return $this->json(
@@ -92,12 +95,10 @@ class PaymentController extends AbstractController
 
         if ($event->type == 'checkout.session.completed') {
             // Retrieve the session. If you require line items in the response, you may include them by expanding line_items.
-            $session = Session::retrieve([
-              'id' => $event->data->object->id,
-              'expand' => ['line_items'],
-            ]);
 
-            $cart->newOrder();
+            $userId = $event->data->object->metadata->id;
+
+            $cart->newOrder($userId);
 
           }
 
