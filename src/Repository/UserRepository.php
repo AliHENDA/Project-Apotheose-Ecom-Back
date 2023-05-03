@@ -86,6 +86,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     }
 
+    public function followers() {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT * FROM `user`
+        WHERE `newsletter` = true" ;
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

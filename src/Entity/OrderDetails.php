@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\OrderDetailsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\OrderDetailsRepository;
 use App\Entity\Product;
 use Symfony\Component\Serializer\Annotation\Groups;
 
