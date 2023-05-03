@@ -45,7 +45,6 @@ class ApiCategoryController extends AbstractController
             );
         }
         $products = $category->getWomanProducts();
-        dd($category, $products);
 
         $data = [
             "category" => $category,

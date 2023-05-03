@@ -21,10 +21,11 @@ class ApiUserController extends AbstractController
     /**
      * Requete pour chercher un Item
      *
-     * @Route("/api/secure/users/{id<\d+>}", name="api_users_get_item", methods={"GET"})
+     * @Route("/api/secure/user", name="api_users_get_item", methods={"GET"})
      */
-    public function getItem(User $user = null)
+    public function getItem()
     {
+        $user = $this->getUser();
         if ($user === null) {
             return $this->json(
                 ['error' => 'Utilisateur non trouvé !'],

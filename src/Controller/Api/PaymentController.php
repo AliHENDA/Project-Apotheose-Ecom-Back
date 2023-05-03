@@ -2,6 +2,7 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\TemporaryCart;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -46,7 +47,7 @@ class PaymentController extends AbstractController
             'cancel_url' => 'http://localhost:5173/',
             'billing_address_collection' => 'required',
             'shipping_address_collection' => [
-                'allowed_countries' => ['FR']
+                'allowed_countries' => ['FR', 'US', 'GB']
             ],
         ]);
 
@@ -63,7 +64,7 @@ class PaymentController extends AbstractController
      * 
      * @Route ("/webhook", name="webhook") 
      */
-    public function handle(Cart2Repository $cart2Repository)
+    public function handle(TestCart $cart)
     {
         Stripe::setApiKey($_ENV['STRIPE_SECRET']);
 
@@ -99,11 +100,7 @@ class PaymentController extends AbstractController
             $cartId = $event->data->object->metadata->cart_id;
             $userId = $event->data->object->metadata->user_id;
 
-            $cart2Repository->fulfillOrder($cartId, $userId);
-            $line_items = $session->line_items;
-            // Fulfill the purchase...
           }
-        http_response_code(200);
 
         return $this->json(
             [],
