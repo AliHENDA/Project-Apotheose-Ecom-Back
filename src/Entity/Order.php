@@ -18,6 +18,7 @@ class Order
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"get_cart_item"})
      */
     private $id;
 
@@ -28,11 +29,13 @@ class Order
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"get_cart_item"})
      */
     private $delivery_adress;
 
     /**
      * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="myOrder")
+     * @Groups({"get_cart_item"})
      */
     private $orderDetails;
 

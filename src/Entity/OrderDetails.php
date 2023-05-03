@@ -20,16 +20,19 @@ class OrderDetails
     /**
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="orderDetails")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"get_cart_item"})
      */
     private $product;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"get_cart_item"})
      */
     private $quantity;
 
     /**
      * @ORM\Column(type="string", length=4, nullable=true)
+     * @Groups({"get_cart_item"})
      */
     private $size;
 

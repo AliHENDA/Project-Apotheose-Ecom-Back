@@ -41,6 +41,31 @@ class TestCart extends AbstractController
             );
     }
 
+    /**
+     * @Route("/api/secure/user/orders", name="api_user_orders", methods={"GET"})
+     */
+    public function getOrders() {
+
+        // we fetch connected user
+        $user = $this->getUser();
+
+        // we fetch all temporary cart items
+        $orders = $user->getOrders();
+
+
+           // $orderDetails = $orders->getOrderDetails();
+            //dd($orderDetails);
+
+            return $this->json(
+                // Le cart crée
+                $orders,
+                // Le status code 200 : Ok
+                200,
+                [],
+                ['groups' => 'get_cart_item']
+            );         
+    }
+
 
 
     /**
