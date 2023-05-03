@@ -26,7 +26,7 @@ class ApiSearchController extends AbstractController
         $searchItem = $productRepository->search($name);
 
         return $this->json(
-            // Le cart crée
+            // Search
             $searchItem,
             // Le status code 200 : Ok
             200,
