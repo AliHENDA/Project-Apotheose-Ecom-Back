@@ -17,7 +17,7 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"get_products_collection", "get_products_item"})
+     * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $id;
 
@@ -58,7 +58,7 @@ class Product
     private $rate;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @ORM\Column(type="integer")
      * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $price;
@@ -179,12 +179,12 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?string
+    public function getPrice(): ?int
     {
         return $this->price;
     }
 
-    public function setPrice(string $price): self
+    public function setPrice(int $price): self
     {
         $this->price = $price;
 

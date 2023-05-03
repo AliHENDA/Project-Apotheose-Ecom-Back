@@ -130,9 +130,11 @@ class Category
     public function getWomanProducts(): Collection
     {
         $expr = new Comparison('gender', '=', 'Woman');
+        $exprUnisex = new Comparison('gender', '=', 'Unisex');
         $criteria = new Criteria();
 
         $criteria->where($expr);
+        $criteria->orWhere($exprUnisex);
 
         return $this->products->matching($criteria);
     }
@@ -140,9 +142,11 @@ class Category
     public function getManProducts(): Collection
     {
         $expr = new Comparison('gender', '=', 'Man');
+        $exprUnisex = new Comparison('gender', '=', 'Unisex');
         $criteria = new Criteria();
 
         $criteria->where($expr);
+        $criteria->orWhere($exprUnisex);
 
         return $this->products->matching($criteria);
     }

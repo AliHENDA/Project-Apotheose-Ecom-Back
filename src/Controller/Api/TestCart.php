@@ -11,6 +11,7 @@ use App\Repository\InventoryRepository;
 use App\Repository\ProductRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\TemporaryCartRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,18 +20,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TestCart extends AbstractController
 {
-    private $temporaryCartRepository;
-    private $inventoryRepository;
-    private $doctrine;
-
-    public function __construct(TemporaryCartRepository $temporaryCartRepository, InventoryRepository $inventoryRepository, ManagerRegistry $doctrine) {
-
-        $this->temporaryCartRepository = $temporaryCartRepository;
-        $this->inventoryRepository = $inventoryRepository;
-        $this->doctrine = $doctrine;
-
-    }
-
     /**
      * @Route("/api/secure/user/cart", name="api_user_cart", methods={"GET"})
      */
@@ -211,14 +200,21 @@ class TestCart extends AbstractController
     /**
      * @Route("/api/secure/order/new", name="api_order_new", methods={"POST"})
      */
-    public function newOrder() {
+    public function newOrder(TemporaryCartRepository $temporaryCartRepository, UserRepository $userRepository, Request $request, ManagerRegistry $doctrine, InventoryRepository $inventoryRepository) {
 
-        $entityManager = $this->doctrine->getManager();
-        // On va d'abord récupérer l'utilisateur
-        $user = $this->getUser();
+        $entityManager = $doctrine->getManager();
+        
+        // on récupère le contenu de la requête
+        $jsonContent = $request->getContent();
+
+        // on la transforme en objet
+        $content = json_decode($jsonContent, true);
+
+        $userId = $content["id"];
+        $user = $userRepository->find($userId);
 
         // On récupère le tableau d'objet cart associé à l'utilisateur
-        $cartToOrderDetails = $this->temporaryCartRepository->findBy(["user"=> $user]);
+        $cartToOrderDetails = $temporaryCartRepository->findBy(["user"=> $user]);
 
         // on créé un objet Order et on lui associe l'utilisateur
         $order = New Order();
@@ -252,7 +248,7 @@ class TestCart extends AbstractController
             $entityManager->remove($cartToOrderDetail);
 
             // on récupère dans la table inventory, le produit, avec la taille récupéré plus haut
-            $inventoryItem = $this->inventoryRepository->findOneBy(["product" => $product, "size" => $size]);
+            $inventoryItem = $inventoryRepository->findOneBy(["product" => $product, "size" => $size]);
 
             // un fois trouvé, on récpère son stock
             $actualStock = $inventoryItem->getStock();
