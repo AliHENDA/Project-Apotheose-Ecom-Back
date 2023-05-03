@@ -103,14 +103,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Cart2::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=TemporaryCart::class, mappedBy="user")
      */
-    private $cart2s;
+    private $temporaryCarts;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
+     */
+    private $orders;
 
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
-        $this->cart2s = new ArrayCollection();
+        $this->temporaryCarts = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -311,29 +317,59 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Cart2>
+     * @return Collection<int, TemporaryCart>
      */
-    public function getCart2s(): Collection
+    public function getTemporaryCarts(): Collection
     {
-        return $this->cart2s;
+        return $this->temporaryCarts;
     }
 
-    public function addCart2(Cart2 $cart2): self
+    public function addTemporaryCart(TemporaryCart $temporaryCart): self
     {
-        if (!$this->cart2s->contains($cart2)) {
-            $this->cart2s[] = $cart2;
-            $cart2->setUser($this);
+        if (!$this->temporaryCarts->contains($temporaryCart)) {
+            $this->temporaryCarts[] = $temporaryCart;
+            $temporaryCart->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeCart2(Cart2 $cart2): self
+    public function removeTemporaryCart(TemporaryCart $temporaryCart): self
     {
-        if ($this->cart2s->removeElement($cart2)) {
+        if ($this->temporaryCarts->removeElement($temporaryCart)) {
             // set the owning side to null (unless already changed)
-            if ($cart2->getUser() === $this) {
-                $cart2->setUser(null);
+            if ($temporaryCart->getUser() === $this) {
+                $temporaryCart->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): self
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getUser() === $this) {
+                $order->setUser(null);
             }
         }
 
