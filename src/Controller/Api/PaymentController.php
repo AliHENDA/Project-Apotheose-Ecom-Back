@@ -39,7 +39,7 @@ class PaymentController extends AbstractController
                         ],
                         'unit_amount' => $product['product']['price']
                     ],
-                    'quantity' => 1
+                    'quantity' => $product['quantity']
                 ], $data['products']),
             ]],
             'mode' => 'payment',
