@@ -51,6 +51,11 @@ class Order
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isDelivered;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -136,6 +141,18 @@ class Order
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function isIsDelivered(): ?bool
+    {
+        return $this->isDelivered;
+    }
+
+    public function setIsDelivered(?bool $isDelivered): self
+    {
+        $this->isDelivered = $isDelivered;
 
         return $this;
     }
