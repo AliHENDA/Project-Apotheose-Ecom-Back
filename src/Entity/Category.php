@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\Criteria;
@@ -25,12 +26,14 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @NotBlank
      * @Groups({"get_categories_collection", "get_categories_item"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank
      * @Groups({"get_categories_collection", "get_categories_item"})
      */
     private $picture;

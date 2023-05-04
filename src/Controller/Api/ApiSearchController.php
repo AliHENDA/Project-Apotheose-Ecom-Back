@@ -13,7 +13,7 @@ class ApiSearchController extends AbstractController
     /**
      * Requete pour chercher un Item
      *
-     * @Route("/api/search", name="api_search_item", methods={"GET"})
+     * @Route("/api/search", name="api_search_item", methods={"POST"})
      */
     public function searchItem(Request $request, ProductRepository $productRepository) {
 

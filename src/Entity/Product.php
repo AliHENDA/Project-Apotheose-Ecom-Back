@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProductRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -23,30 +24,35 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank
      * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank
      * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank
      * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=5)
+     * @Assert\NotBlank
      * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $gender;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
+     * @Assert\NotBlank
      * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $color;
@@ -59,6 +65,7 @@ class Product
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
     private $price;

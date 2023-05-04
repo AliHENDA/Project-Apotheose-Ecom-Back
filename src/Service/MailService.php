@@ -11,37 +11,27 @@ use Symfony\Component\HttpFoundation\Response;
 class MailService {
 
     private $mailer;
-    private $userRepository;
 
-    public function __construct(MailerInterface $mailer, UserRepository $userRepository)
+    public function __construct(MailerInterface $mailer)
     {
         $this->mailer = $mailer;
-        $this->userRepository = $userRepository;
-
     }
 
-    public function sendEmail(): void
+    public function sendEmail($to): void
     {
-        
-        $users = $this->userRepository->followers();
-
-        foreach($users as $user) {
-            $mail = $user["email"];
 
             $email = (new Email())
             ->from('alihenda4@gmail.com')
-            ->to($mail)
+            ->to($to)
             //->cc('cc@example.com')
             //->bcc('bcc@example.com')
             //->replyTo('fabien@example.com')
             //->priority(Email::PRIORITY_HIGH)
-            ->subject('Time for Symfony Mailer!')
-            ->text('Sending emails is fun again!')
-            ->html('<p>See Twig integration for better HTML integration!</p>');
+            ->subject('Commande ok')
+            ->text('Merci!')
+            ->html('<p>Merci!</p>');
 
         $this->mailer->send($email);
-
-        }
         
 
         // ...

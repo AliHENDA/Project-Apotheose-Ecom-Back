@@ -79,7 +79,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/employees/{id}", name="app_user_show_customer", methods={"GET"})
+     * @Route("/customers/{id}", name="app_user_show_customer", methods={"GET"})
      */
     public function showCustomer(User $user): Response
     {
@@ -159,6 +159,6 @@ class UserController extends AbstractController
             $userRepository->remove($user, true);
         }
 
-        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_user_index_customers', [], Response::HTTP_SEE_OTHER);
     }
 }

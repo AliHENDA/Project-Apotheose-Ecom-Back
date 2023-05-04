@@ -42,6 +42,7 @@ class Order
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"get_cart_item"})
      */
     private $createdAt;
 
