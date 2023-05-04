@@ -21,6 +21,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TestCart extends AbstractController
 {
+
+    private $temporaryCartRepository;
+    private $userRepository;
+    private $doctrine;
+    private $inventoryRepository;
+
+    public function __construct(TemporaryCartRepository $temporaryCartRepository, UserRepository $userRepository, Request $request, ManagerRegistry $doctrine, InventoryRepository $inventoryRepository) {
+
+        $this->temporaryCartRepository = $temporaryCartRepository;
+        $this->userRepository = $userRepository;
+        $this->doctrine = $doctrine;
+        $this->inventoryRepository = $inventoryRepository;
+
+    }
     /**
      * @Route("/api/secure/user/cart", name="api_user_cart", methods={"GET"})
      */
@@ -226,13 +240,13 @@ class TestCart extends AbstractController
     /**
      * @Route("/api/secure/order/new", name="api_order_new", methods={"POST"})
      */
-    public function newOrder(TemporaryCartRepository $temporaryCartRepository, UserRepository $userRepository, Request $request, ManagerRegistry $doctrine, InventoryRepository $inventoryRepository) {
+    public function newOrder($id) {
 
-        $entityManager = $doctrine->getManager();
+        $entityManager = $this->doctrine->getManager();
 
         $user = $this->getUser();
         // On récupère le tableau d'objet cart associé à l'utilisateur
-        $cartToOrderDetails = $temporaryCartRepository->findBy(["user"=> $user]);
+        $cartToOrderDetails = $this->temporaryCartRepository->findBy(["user"=> $user]);
 
         // on créé un objet Order et on lui associe l'utilisateur
         $order = New Order();
@@ -266,7 +280,7 @@ class TestCart extends AbstractController
             $entityManager->remove($cartToOrderDetail);
 
             // on récupère dans la table inventory, le produit, avec la taille récupéré plus haut
-            $inventoryItem = $inventoryRepository->findOneBy(["product" => $product, "size" => $size]);
+            $inventoryItem = $this->inventoryRepository->findOneBy(["product" => $product, "size" => $size]);
 
             // un fois trouvé, on récpère son stock
             $actualStock = $inventoryItem->getStock();
