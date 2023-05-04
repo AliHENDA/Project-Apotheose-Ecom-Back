@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 use Stripe\Webhook;
-use App\Repository\Cart2Repository;
 
 class PaymentController extends AbstractController
 {
