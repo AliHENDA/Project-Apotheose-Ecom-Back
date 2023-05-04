@@ -21,20 +21,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TestCart extends AbstractController
 {
-
     private $temporaryCartRepository;
-    private $userRepository;
-    private $doctrine;
     private $inventoryRepository;
+    private $doctrine;
+    private $userRepository;
 
-    public function __construct(TemporaryCartRepository $temporaryCartRepository, UserRepository $userRepository, Request $request, ManagerRegistry $doctrine, InventoryRepository $inventoryRepository) {
+    public function __construct(TemporaryCartRepository $temporaryCartRepository, InventoryRepository $inventoryRepository, ManagerRegistry $doctrine, UserRepository $userRepository) {
 
         $this->temporaryCartRepository = $temporaryCartRepository;
-        $this->userRepository = $userRepository;
-        $this->doctrine = $doctrine;
         $this->inventoryRepository = $inventoryRepository;
+        $this->doctrine = $doctrine;
+        $this->userRepository = $userRepository;
 
     }
+
     /**
      * @Route("/api/secure/user/cart", name="api_user_cart", methods={"GET"})
      */
@@ -240,13 +240,15 @@ class TestCart extends AbstractController
     /**
      * @Route("/api/secure/order/new", name="api_order_new", methods={"POST"})
      */
-    public function newOrder($id) {
+    public function newOrder($userId) {
 
         $entityManager = $this->doctrine->getManager();
+        
+        $user = $this->userRepository->find($userId);
 
-        $user = $this->userRepository->find($id);
         // On récupère le tableau d'objet cart associé à l'utilisateur
         $cartToOrderDetails = $this->temporaryCartRepository->findBy(["user"=> $user]);
+        
 
         // on créé un objet Order et on lui associe l'utilisateur
         $order = New Order();
@@ -261,10 +263,12 @@ class TestCart extends AbstractController
             $orderDetails->setMyOrder($order);
 
             // je détaille les étapes, mais on peut stocker la valeur de la variable directement dans le setter. Ici, on récupère l'objet Product de $cartToOrderDetails
-            $product = $cartToOrderDetail->getProduct();    
+            $product = $cartToOrderDetail->getProduct();   
+            
 
             // on définit la propriété product de l'objet orderDetails, en y associant le product récupéré ligne 226
             $orderDetails->setProduct($product);
+             
 
             // On récupère la quantité, de cartToOrderDetails, et on la définit comme valeur de la propriété quantity d'orderDetails
             $quantity = $cartToOrderDetail->getQuantity();
