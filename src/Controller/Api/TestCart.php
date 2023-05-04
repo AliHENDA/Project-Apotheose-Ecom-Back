@@ -244,7 +244,7 @@ class TestCart extends AbstractController
 
         $entityManager = $this->doctrine->getManager();
 
-        $user = $this->getUser();
+        $user = $this->userRepository->find($id);
         // On récupère le tableau d'objet cart associé à l'utilisateur
         $cartToOrderDetails = $this->temporaryCartRepository->findBy(["user"=> $user]);
 
