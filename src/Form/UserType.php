@@ -73,12 +73,12 @@ class UserType extends AbstractType
                         // Expected argument of type "string", "null" given at property path "password".
                         // (notamment à l'edit en cas de passage d'une valeur existante à vide)
                         'empty_data' => '',
+                        'help' => 'Make sure it\'s at least 8 characters including a number and a lowercase letter and a special character.',
                         // On déplace les contraintes de l'entité vers le form d'ajout
                         'constraints' => [
                             new NotBlank(),
                             new Regex(
-                                "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
-                                "Le mot de passe doit contenir au minimum 8 caractères, une majuscule, un chiffre et un caractère spécial"
+                                "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/"
                             ),
                         ],
                     ]);

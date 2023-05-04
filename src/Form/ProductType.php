@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Product;
 use App\Entity\Category;
+use App\Form\PictureType;
+use App\Form\InventoryType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,14 +13,11 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use App\Form\PictureType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ProductType extends AbstractType
 {
@@ -36,8 +35,9 @@ class ProductType extends AbstractType
             ])
             ->add('gender', ChoiceType::class, [
                 'choices'  => [
-                    'Femme' => 'Femme',
-                    'Homme' => 'Homme',
+                    'Woman' => 'Woman',
+                    'Man' => 'Man',
+                    'Unisex' => 'Unisex'
                 ],
                 // Boutons radios
                 'expanded' => true, 
@@ -59,14 +59,8 @@ class ProductType extends AbstractType
                     'Kaki' => 'Kaki'
                 ],
             ])
-            ->add('size', IntegerType::class, [
-                'label' => 'Taille'
-            ])
             ->add('price', MoneyType::class, [
                 'label' => 'Prix'
-            ])
-            ->add('stock', IntegerType::class, [
-                'label' => 'Stock'
             ])
             //->add('best_sellers_order')
             //->add('createdAt')
@@ -85,6 +79,13 @@ class ProductType extends AbstractType
                 //'multiple' => true,
                 //'expanded' => true,
             ])
+            ->add('inventories', CollectionType::class, [
+                'entry_type' => InventoryType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'label' => 'Inventaire'
+            ])      
         ;
     }
 
