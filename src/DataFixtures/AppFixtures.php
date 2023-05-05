@@ -69,11 +69,7 @@ class AppFixtures extends Fixture
             $product->setGender($faker->randomElement(['Homme', 'Femme']));
             $product->setColor($faker->randomElement(['Noir', 'Blanc', 'Bleu Clair', 'Rouge', 'Jaune', 'Vert', 'Gris', 'Kaki']));
             $product->setPrice($faker->numberBetween(9.99, 299.99));
-            $product->setStock($faker->numberBetween(0, 30));
-            $product->setSize($faker->randomElement(['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXL']));
             $product->setRate($faker->randomFloat(1, 1, 5));
-            
-
             $randomCategory = $categoriesList[mt_rand(0, count($categoriesList) - 1)];
             $product->setCategory($randomCategory);
 

@@ -19,7 +19,7 @@ class Inventory
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="inventories")
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="inventories", cascade={"persist"})
      */
     private $product;
 

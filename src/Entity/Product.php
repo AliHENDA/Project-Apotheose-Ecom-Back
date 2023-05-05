@@ -44,7 +44,7 @@ class Product
     private $picture;
 
     /**
-     * @ORM\Column(type="string", length=5)
+     * @ORM\Column(type="string", length=8)
      * @Assert\NotBlank
      * @Groups({"get_products_collection", "get_products_item", "get_cart_item"})
      */
@@ -108,7 +108,7 @@ class Product
     private $temporaryCarts;
 
     /**
-     * @ORM\OneToMany(targetEntity=Inventory::class, mappedBy="product")
+     * @ORM\OneToMany(targetEntity=Inventory::class, mappedBy="product", cascade={"persist"})
      * @Groups({"get_products_collection", "get_products_item"})
      */
     private $inventories;
