@@ -34,7 +34,7 @@
                 <td>{{ product.gender }}</td>
                 <td>{{ product.color }}</td>
                 <td>{{ product.rate }}</td>
-                <td>{{ product.price }}</td>
+                <td>{{ (product.price / 100)|number_format(2) }}</td>
                 {#<td>{{ product.bestSellersOrder }}</td>
                 <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ product.updatedAt ? product.updatedAt|date('Y-m-d H:i:s') : '' }}</td>#}

@@ -21,6 +21,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TestCart extends AbstractController
 {
+
+    // Le code peut être factorisé. Je laisse le détail, pour comprendre ce qui est fait à chaque étape.
+    // J'ai créé une méthode construct pour limiter le nombre de paramètre dans la methdod newOrder, pour la transimission uniquement du l'id de l'utilisateur.
+    
     private $temporaryCartRepository;
     private $inventoryRepository;
     private $doctrine;
