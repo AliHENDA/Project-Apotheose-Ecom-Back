@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Inventory;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -14,7 +15,16 @@ class InventoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('size', TextType::class)
+            ->add('size', ChoiceType::class, [
+                'label' => 'taille',
+                'choices' => [
+                    'XS' => 'XS',
+                    'S' => 'S',
+                    'M' => 'M',
+                    'L' => 'L',
+                    'XL' => 'XL',
+                ],
+            ])
             ->add('stock', IntegerType::class)
            // ->add('product')
         ;
