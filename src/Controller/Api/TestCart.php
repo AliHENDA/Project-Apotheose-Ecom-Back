@@ -2,7 +2,6 @@
 
 namespace App\Controller\Api;
 
-use App\Entity\Inventory;
 use App\Entity\Order;
 use DateTimeImmutable;
 use App\Entity\OrderDetails;
@@ -12,7 +11,6 @@ use App\Repository\ProductRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\TemporaryCartRepository;
 use App\Repository\UserRepository;
-use App\Service\MailService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
